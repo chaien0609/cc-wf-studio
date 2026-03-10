@@ -88,6 +88,10 @@ export const zhCNWebviewTranslations: WebviewTranslationKeys = {
   // Toolbar more actions dropdown
   'toolbar.moreActions': '更多',
   'toolbar.help': '帮助',
+  'toolbar.whatsNew': '更新内容',
+  'whatsNew.title': '更新内容',
+  'whatsNew.viewAllReleases': '查看所有更新内容',
+  'whatsNew.showBadge': '未读徽章',
 
   // Copilot Execution Mode
   'copilot.mode.tooltip': '选择 Copilot 执行模式',
@@ -355,7 +359,7 @@ export const zhCNWebviewTranslations: WebviewTranslationKeys = {
   'tour.refineWithAI':
     '使用"AI编辑"按钮通过与AI对话创建或改进工作流。\n\n可以从空画布开始或以对话方式编辑现有工作流。',
   'tour.moreActions':
-    '"更多"菜单提供以下功能：<br><br>• 分享到Slack - 与团队分享工作流<br>• 重置 - 清空画布<br>• 帮助 - 再次查看此导览<br><br>享受创建工作流的乐趣！',
+    '"更多"菜单提供以下功能：<br><br>• Claude API - 将工作流上传到Claude API<br>• 分享到Slack - 与团队分享工作流<br>• 重置 - 清空画布<br>• 专注模式 - 切换无干扰编辑模式<br>• AI代理 - 在其他AI代理中打开工作流<br>• 最新动态 - 查看最新更新<br>• 帮助 - 再次查看此导览<br><br>享受创建工作流的乐趣！',
 
   // Tour buttons
   'tour.button.back': '返回',
@@ -363,19 +367,6 @@ export const zhCNWebviewTranslations: WebviewTranslationKeys = {
   'tour.button.finish': '完成',
   'tour.button.next': '下一步',
   'tour.button.skip': '跳过',
-
-  // Terms of Use
-  'terms.title': 'CC Workflow Studio - 使用条款',
-  'terms.introduction': '本工具支持合法目的的工作流创建。',
-  'terms.prohibitedUse': '禁止以下用途：',
-  'terms.cyberAttack': '网络攻击（DDoS攻击、未经授权的访问等）',
-  'terms.malware': '恶意软件和勒索软件的创建',
-  'terms.personalDataTheft': '未经授权收集或滥用个人信息',
-  'terms.otherIllegalActs': '其他非法活动或对他人造成伤害的行为',
-  'terms.liability': '违规时用户将承担全部责任。',
-  'terms.agree': '我同意以上内容',
-  'terms.agreeButton': '同意并开始',
-  'terms.cancelButton': '取消',
 
   // Delete Confirmation Dialog
   'dialog.deleteNode.title': '删除节点',
@@ -886,4 +877,8 @@ export const zhCNWebviewTranslations: WebviewTranslationKeys = {
   'description.panel.title': '描述',
   'description.panel.show': '显示描述面板',
   'description.panel.hide': '隐藏描述面板',
+
+  // Claude API Upload Dialog
+  'claudeApi.description':
+    '将工作流作为 Agent Skills 上传到 Claude API，并通过 Messages API 运行。\n结合 MCP 服务器、代码执行和其他技能，您可以将专业 AI 代理作为 API 发布，用于文档处理、数据分析、客户支持等场景。',
 };

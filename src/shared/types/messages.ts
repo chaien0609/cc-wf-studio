@@ -53,7 +53,37 @@ export interface WorkflowListPayload {
 }
 
 export interface InitialStatePayload {
-  hasAcceptedTerms: boolean;
+  isFirstTimeUser: boolean;
+  unreadReleaseCount: number;
+  showWhatsNewBadge: boolean;
+}
+
+// ============================================================================
+// Changelog Payloads
+// ============================================================================
+
+export interface ChangelogEntry {
+  version: string;
+  date: string;
+  compareUrl: string;
+  sections: ChangelogSection[];
+}
+
+export interface ChangelogSection {
+  title: string;
+  items: ChangelogItem[];
+}
+
+export interface ChangelogItem {
+  text: string;
+  prNumber?: string;
+  prUrl?: string;
+}
+
+export interface GetChangelogResultPayload {
+  entries: ChangelogEntry[];
+  unreadCount: number;
+  currentVersion: string;
 }
 
 // ============================================================================
@@ -730,6 +760,232 @@ export interface McpCacheRefreshedPayload {
 }
 
 // ============================================================================
+// Claude API Upload Payloads
+// ============================================================================
+
+/**
+ * Upload to Claude API request payload (Webview → Extension)
+ */
+export interface UploadToClaudeApiPayload {
+  workflow: Workflow;
+}
+
+/**
+ * Upload to Claude API success payload (Extension → Webview)
+ */
+export interface UploadToClaudeApiSuccessPayload {
+  skillId: string;
+  version: string;
+  isNewVersion: boolean;
+  timestamp: string; // ISO 8601
+}
+
+/**
+ * Upload to Claude API failed payload (Extension → Webview)
+ */
+export interface UploadToClaudeApiFailedPayload {
+  errorCode: string;
+  errorMessage: string;
+  timestamp: string; // ISO 8601
+}
+
+/**
+ * Execute uploaded skill payload (Webview → Extension)
+ */
+export interface ExecuteUploadedSkillPayload {
+  skillId: string;
+  prompt: string;
+  model: string;
+  conversationHistory?: Array<{ role: 'user' | 'assistant'; content: string }>;
+  containerId?: string;
+  mcpServers?: Array<{ id: string; url: string; authorization_token?: string }>;
+  additionalSkillIds?: string[];
+  system?: string;
+}
+
+/**
+ * Execute uploaded skill success payload (Extension → Webview)
+ */
+export interface ExecuteUploadedSkillSuccessPayload {
+  responseText: string;
+  stopReason: string;
+  timestamp: string; // ISO 8601
+  containerId?: string;
+  usage?: { input_tokens: number; output_tokens: number };
+}
+
+/**
+ * Execute uploaded skill failed payload (Extension → Webview)
+ */
+export interface ExecuteUploadedSkillFailedPayload {
+  errorCode: string;
+  errorMessage: string;
+  timestamp: string; // ISO 8601
+}
+
+/**
+ * List custom skills success payload (Extension → Webview)
+ */
+export interface ListCustomSkillsSuccessPayload {
+  skills: { id: string; displayTitle: string; latestVersion: string }[];
+}
+
+/**
+ * List custom skills failed payload (Extension → Webview)
+ */
+export interface ListCustomSkillsFailedPayload {
+  errorCode: string;
+  errorMessage: string;
+  timestamp: string; // ISO 8601
+}
+
+/**
+ * Delete custom skill payload (Webview → Extension)
+ */
+export interface DeleteCustomSkillPayload {
+  skillId: string;
+}
+
+/**
+ * Delete custom skill success payload (Extension → Webview)
+ */
+export interface DeleteCustomSkillSuccessPayload {
+  skillId: string;
+}
+
+/**
+ * Delete custom skill failed payload (Extension → Webview)
+ */
+export interface DeleteCustomSkillFailedPayload {
+  errorCode: string;
+  errorMessage: string;
+}
+
+/**
+ * Execute skill progress payload (Extension → Webview)
+ * Sent during streaming execution with each new chunk
+ */
+export interface ExecuteSkillProgressPayload {
+  chunk: string;
+  accumulatedText: string;
+  timestamp: string; // ISO 8601
+}
+
+/**
+ * Store Anthropic API key payload (Webview → Extension)
+ */
+export interface StoreAnthropicApiKeyPayload {
+  apiKey: string;
+}
+
+/**
+ * Check Anthropic API key result payload (Extension → Webview)
+ */
+export interface CheckAnthropicApiKeyResultPayload {
+  hasApiKey: boolean;
+}
+
+/**
+ * Get MCP server types request payload (Webview → Extension)
+ */
+export interface GetMcpServerTypesPayload {
+  serverIds: string[];
+}
+
+/**
+ * Get MCP server types result payload (Extension → Webview)
+ * null = configuration not found (treat as non-Claude API compatible)
+ */
+export interface GetMcpServerTypesResultPayload {
+  serverTypes: Record<string, 'stdio' | 'http' | 'sse' | null>;
+}
+
+/**
+ * Upload a dependent skill file directly (Webview → Extension)
+ */
+export interface UploadDependentSkillPayload {
+  skillName: string;
+  skillPath: string;
+}
+
+/**
+ * Upload dependent skill success payload (Extension → Webview)
+ */
+export interface UploadDependentSkillSuccessPayload {
+  skillName: string;
+  skillId: string;
+  version: string;
+  isNewVersion: boolean;
+}
+
+/**
+ * Upload dependent skill failed payload (Extension → Webview)
+ */
+export interface UploadDependentSkillFailedPayload {
+  skillName: string;
+  errorCode: string;
+  errorMessage: string;
+}
+
+/**
+ * Get saved MCP server URLs result payload (Extension → Webview)
+ */
+export interface GetSavedMcpServerUrlsResultPayload {
+  urls: Record<string, string>;
+}
+
+/**
+ * Save MCP server URLs payload (Webview → Extension)
+ */
+export interface SaveMcpServerUrlsPayload {
+  urls: Record<string, string>;
+}
+
+/**
+ * Lookup MCP Registry payload (Webview → Extension)
+ */
+export interface LookupMcpRegistryPayload {
+  serverIds: string[];
+}
+
+/**
+ * Lookup MCP Registry result payload (Extension → Webview)
+ */
+export interface LookupMcpRegistryResultPayload {
+  urls: Record<string, string>;
+}
+
+/**
+ * Get skill version details request payload (Webview → Extension)
+ */
+export interface GetSkillVersionDetailsPayload {
+  skillId: string;
+  version: string;
+}
+
+/**
+ * Get skill version details success payload (Extension → Webview)
+ */
+export interface GetSkillVersionDetailsSuccessPayload {
+  skillId: string;
+  version: string;
+  name: string;
+  description: string;
+  mcpServerIds: string[];
+  dependentSkillNames: string[];
+  isFromStudio: boolean;
+}
+
+/**
+ * Get skill version details failed payload (Extension → Webview)
+ */
+export interface GetSkillVersionDetailsFailedPayload {
+  errorCode: string;
+  errorMessage: string;
+  timestamp: string;
+}
+
+// ============================================================================
 // Extension → Webview Messages
 // ============================================================================
 
@@ -789,6 +1045,7 @@ export type ExtensionMessage =
   | Message<SlackErrorPayload, 'SLACK_OAUTH_FAILED'>
   | Message<void, 'SLACK_OAUTH_CANCELLED'>
   | Message<GetLastSharedChannelSuccessPayload, 'GET_LAST_SHARED_CHANNEL_SUCCESS'>
+  | Message<GetChangelogResultPayload, 'GET_CHANGELOG_RESULT'>
   | Message<SlackDescriptionSuccessPayload, 'SLACK_DESCRIPTION_SUCCESS'>
   | Message<SlackDescriptionFailedPayload, 'SLACK_DESCRIPTION_FAILED'>
   | Message<WorkflowNameSuccessPayload, 'WORKFLOW_NAME_SUCCESS'>
@@ -847,6 +1104,27 @@ export type ExtensionMessage =
   | Message<LaunchAiAgentSuccessPayload, 'LAUNCH_AI_AGENT_SUCCESS'>
   | Message<LaunchAiAgentFailedPayload, 'LAUNCH_AI_AGENT_FAILED'>
   | Message<void, 'ANTIGRAVITY_MCP_REFRESH_NEEDED'>
+  | Message<UploadToClaudeApiSuccessPayload, 'UPLOAD_TO_CLAUDE_API_SUCCESS'>
+  | Message<UploadToClaudeApiFailedPayload, 'UPLOAD_TO_CLAUDE_API_FAILED'>
+  | Message<ExecuteUploadedSkillSuccessPayload, 'EXECUTE_UPLOADED_SKILL_SUCCESS'>
+  | Message<ExecuteUploadedSkillFailedPayload, 'EXECUTE_UPLOADED_SKILL_FAILED'>
+  | Message<ExecuteSkillProgressPayload, 'EXECUTE_SKILL_PROGRESS'>
+  | Message<ListCustomSkillsSuccessPayload, 'LIST_CUSTOM_SKILLS_SUCCESS'>
+  | Message<ListCustomSkillsFailedPayload, 'LIST_CUSTOM_SKILLS_FAILED'>
+  | Message<DeleteCustomSkillSuccessPayload, 'DELETE_CUSTOM_SKILL_SUCCESS'>
+  | Message<DeleteCustomSkillFailedPayload, 'DELETE_CUSTOM_SKILL_FAILED'>
+  | Message<CheckAnthropicApiKeyResultPayload, 'CHECK_ANTHROPIC_API_KEY_RESULT'>
+  | Message<void, 'STORE_ANTHROPIC_API_KEY_SUCCESS'>
+  | Message<void, 'CLEAR_ANTHROPIC_API_KEY_SUCCESS'>
+  | Message<GetMcpServerTypesResultPayload, 'GET_MCP_SERVER_TYPES_RESULT'>
+  | Message<{ language: string | null }, 'GET_RESPONSE_LANGUAGE_RESULT'>
+  | Message<UploadDependentSkillSuccessPayload, 'UPLOAD_DEPENDENT_SKILL_SUCCESS'>
+  | Message<UploadDependentSkillFailedPayload, 'UPLOAD_DEPENDENT_SKILL_FAILED'>
+  | Message<GetSavedMcpServerUrlsResultPayload, 'GET_SAVED_MCP_SERVER_URLS_RESULT'>
+  | Message<void, 'SAVE_MCP_SERVER_URLS_SUCCESS'>
+  | Message<LookupMcpRegistryResultPayload, 'LOOKUP_MCP_REGISTRY_RESULT'>
+  | Message<GetSkillVersionDetailsSuccessPayload, 'GET_SKILL_VERSION_DETAILS_SUCCESS'>
+  | Message<GetSkillVersionDetailsFailedPayload, 'GET_SKILL_VERSION_DETAILS_FAILED'>
   | Message<{ success: boolean }, 'DELETE_MCP_BEARER_TOKEN_RESULT'>
   | Message<{ exists: boolean }, 'CHECK_MCP_BEARER_TOKEN_RESULT'>;
 
@@ -1856,8 +2134,6 @@ export type WebviewMessage =
   | Message<void, 'LOAD_WORKFLOW_LIST'>
   | Message<LoadWorkflowRequestPayload, 'LOAD_WORKFLOW'>
   | Message<StateUpdatePayload, 'STATE_UPDATE'>
-  | Message<void, 'ACCEPT_TERMS'>
-  | Message<void, 'CANCEL_TERMS'>
   | Message<void, 'BROWSE_SKILLS'>
   | Message<CreateSkillPayload, 'CREATE_SKILL'>
   | Message<ValidateSkillFilePayload, 'VALIDATE_SKILL_FILE'>
@@ -1916,7 +2192,25 @@ export type WebviewMessage =
   | Message<LaunchAiAgentPayload, 'LAUNCH_AI_AGENT'>
   | Message<SetReviewBeforeApplyPayload, 'SET_REVIEW_BEFORE_APPLY'>
   | Message<void, 'OPEN_ANTIGRAVITY_MCP_SETTINGS'>
-  | Message<void, 'CONFIRM_ANTIGRAVITY_CASCADE_LAUNCH'>;
+  | Message<void, 'CONFIRM_ANTIGRAVITY_CASCADE_LAUNCH'>
+  | Message<UploadToClaudeApiPayload, 'UPLOAD_TO_CLAUDE_API'>
+  | Message<ExecuteUploadedSkillPayload, 'EXECUTE_UPLOADED_SKILL'>
+  | Message<StoreAnthropicApiKeyPayload, 'STORE_ANTHROPIC_API_KEY'>
+  | Message<void, 'CHECK_ANTHROPIC_API_KEY'>
+  | Message<void, 'CLEAR_ANTHROPIC_API_KEY'>
+  | Message<void, 'LIST_CUSTOM_SKILLS'>
+  | Message<DeleteCustomSkillPayload, 'DELETE_CUSTOM_SKILL'>
+  | Message<GetMcpServerTypesPayload, 'GET_MCP_SERVER_TYPES'>
+  | Message<void, 'GET_RESPONSE_LANGUAGE'>
+  | Message<{ language: string }, 'SET_RESPONSE_LANGUAGE'>
+  | Message<UploadDependentSkillPayload, 'UPLOAD_DEPENDENT_SKILL'>
+  | Message<void, 'GET_SAVED_MCP_SERVER_URLS'>
+  | Message<SaveMcpServerUrlsPayload, 'SAVE_MCP_SERVER_URLS'>
+  | Message<LookupMcpRegistryPayload, 'LOOKUP_MCP_REGISTRY'>
+  | Message<GetSkillVersionDetailsPayload, 'GET_SKILL_VERSION_DETAILS'>
+  | Message<void, 'GET_CHANGELOG'>
+  | Message<void, 'MARK_CHANGELOG_READ'>
+  | Message<{ show: boolean }, 'SET_WHATS_NEW_BADGE'>;
 
 // ============================================================================
 // Error Codes

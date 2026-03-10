@@ -27,7 +27,6 @@ import { SlackConnectionRequiredDialog } from './components/dialogs/SlackConnect
 import { SlackManualTokenDialog } from './components/dialogs/SlackManualTokenDialog';
 import { SlackShareDialog } from './components/dialogs/SlackShareDialog';
 import { SubAgentFlowDialog } from './components/dialogs/SubAgentFlowDialog';
-import { TermsOfUseDialog } from './components/dialogs/TermsOfUseDialog';
 import { ErrorNotification } from './components/ErrorNotification';
 import { NodePalette } from './components/NodePalette';
 import { PropertyOverlay } from './components/PropertyOverlay';
@@ -175,7 +174,6 @@ const App: React.FC = () => {
   const [isSlackShareDialogOpen, setIsSlackShareDialogOpen] = useState(false);
   const [isLoadingImportedWorkflow, setIsLoadingImportedWorkflow] = useState(false);
   const [isLoadingWorkflowFromPreview, setIsLoadingWorkflowFromPreview] = useState(false);
-  const [showTermsDialog, setShowTermsDialog] = useState(false);
   const [isSlackConnectionRequiredDialogOpen, setIsSlackConnectionRequiredDialogOpen] =
     useState(false);
   const [isSlackManualTokenDialogOpen, setIsSlackManualTokenDialogOpen] = useState(false);
@@ -183,6 +181,8 @@ const App: React.FC = () => {
     string | undefined
   >(undefined);
   const [isMoreActionsOpen, setIsMoreActionsOpen] = useState(false);
+  const [unreadReleaseCount, setUnreadReleaseCount] = useState(0);
+  const [showWhatsNewBadge, setShowWhatsNewBadge] = useState(true);
 
   // Pending MCP apply state for diff preview
   const [pendingMcpApply, setPendingMcpApply] = useState<{
@@ -214,10 +214,10 @@ const App: React.FC = () => {
     setRunTour(false);
   };
 
-  const handleStartTour = () => {
+  const handleStartTour = useCallback(() => {
     setRunTour(true);
     setTourKey((prev) => prev + 1); // Increment key to force remount and reset tour state
-  };
+  }, []);
 
   const handleShareToSlack = () => {
     setIsSlackShareDialogOpen(true);
@@ -263,23 +263,6 @@ const App: React.FC = () => {
     setPendingMcpApply(null);
   }, []);
 
-  const handleAcceptTerms = () => {
-    // Send accept message to Extension
-    vscode.postMessage({
-      type: 'ACCEPT_TERMS',
-    });
-    setShowTermsDialog(false);
-    // Start onboarding tour after accepting terms
-    handleStartTour();
-  };
-
-  const handleCancelTerms = () => {
-    // Send cancel message to Extension to close the panel
-    vscode.postMessage({
-      type: 'CANCEL_TERMS',
-    });
-  };
-
   // Listen for messages from Extension
   useEffect(() => {
     const messageHandler = (event: MessageEvent) => {
@@ -296,10 +279,11 @@ const App: React.FC = () => {
         // Switch to edit mode
         setMode('edit');
         const payload = message.payload as InitialStatePayload;
-        if (!payload.hasAcceptedTerms) {
-          // Show terms dialog if not accepted
-          setShowTermsDialog(true);
+        if (payload.isFirstTimeUser) {
+          handleStartTour();
         }
+        setUnreadReleaseCount(payload.unreadReleaseCount ?? 0);
+        setShowWhatsNewBadge(payload.showWhatsNewBadge ?? true);
       } else if (message.type === 'IMPORT_WORKFLOW_FROM_SLACK') {
         // Handle import workflow request from Extension Host
         // Simply forward the message back to Extension Host to trigger the import process
@@ -474,6 +458,7 @@ const App: React.FC = () => {
     workflowDescription,
     subAgentFlows,
     mode,
+    handleStartTour,
   ]);
 
   // Render loading state (waiting for mode to be determined)
@@ -536,6 +521,9 @@ const App: React.FC = () => {
         onShareToSlack={handleShareToSlack}
         moreActionsOpen={isMoreActionsOpen}
         onMoreActionsOpenChange={setIsMoreActionsOpen}
+        initialUnreadReleaseCount={unreadReleaseCount}
+        showWhatsNewBadge={showWhatsNewBadge}
+        onShowWhatsNewBadgeChange={setShowWhatsNewBadge}
       />
 
       {/* Main Content: 3-column layout */}
@@ -598,13 +586,6 @@ const App: React.FC = () => {
 
       {/* Error Notification Overlay */}
       <ErrorNotification error={error} onDismiss={handleDismissError} />
-
-      {/* Terms of Use Dialog */}
-      <TermsOfUseDialog
-        isOpen={showTermsDialog}
-        onAccept={handleAcceptTerms}
-        onCancel={handleCancelTerms}
-      />
 
       {/* Interactive Tour */}
       <Tour key={tourKey} run={runTour} onFinish={handleTourFinish} />

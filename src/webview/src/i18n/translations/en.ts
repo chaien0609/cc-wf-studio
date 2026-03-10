@@ -91,6 +91,10 @@ export const enWebviewTranslations: WebviewTranslationKeys = {
   // Toolbar more actions dropdown
   'toolbar.moreActions': 'More',
   'toolbar.help': 'Help',
+  'toolbar.whatsNew': "What's New",
+  'whatsNew.title': "What's New",
+  'whatsNew.viewAllReleases': 'View all releases',
+  'whatsNew.showBadge': 'Unread badge',
 
   // Copilot Execution Mode
   'copilot.mode.tooltip': 'Select Copilot execution mode',
@@ -370,7 +374,7 @@ export const enWebviewTranslations: WebviewTranslationKeys = {
   'tour.refineWithAI':
     'Use the "Edit with AI" button to create or improve workflows through an interactive chat with AI.\n\nYou can start from an empty canvas or edit existing workflows conversationally.',
   'tour.moreActions':
-    'The "More" menu provides additional actions:<br><br>• Share to Slack - Share workflows with your team<br>• Reset Workflow - Clear the canvas<br>• Help - View this tour again<br><br>Enjoy creating workflows!',
+    'The "More" menu provides additional actions:<br><br>• Claude API - Upload workflows to Claude API<br>• Share to Slack - Share workflows with your team<br>• Reset Workflow - Clear the canvas<br>• Focus Mode - Toggle distraction-free editing<br>• AI Agents - Open workflows in other AI agents<br>• What\'s New - View latest updates<br>• Help - View this tour again<br><br>Enjoy creating workflows!',
 
   // Tour buttons
   'tour.button.back': 'Back',
@@ -378,19 +382,6 @@ export const enWebviewTranslations: WebviewTranslationKeys = {
   'tour.button.finish': 'Finish',
   'tour.button.next': 'Next',
   'tour.button.skip': 'Skip',
-
-  // Terms of Use
-  'terms.title': 'CC Workflow Studio - Terms of Use',
-  'terms.introduction': 'This tool supports workflow creation for legitimate purposes.',
-  'terms.prohibitedUse': 'The following uses are prohibited:',
-  'terms.cyberAttack': 'Cyber attacks (DDoS attacks, unauthorized access, etc.)',
-  'terms.malware': 'Malware and ransomware creation',
-  'terms.personalDataTheft': 'Unauthorized collection or misuse of personal information',
-  'terms.otherIllegalActs': 'Other illegal activities or actions causing harm to others',
-  'terms.liability': 'Users are solely responsible for any violations.',
-  'terms.agree': 'I agree to the above',
-  'terms.agreeButton': 'Agree and Start',
-  'terms.cancelButton': 'Cancel',
 
   // Delete Confirmation Dialog
   'dialog.deleteNode.title': 'Delete Node',
@@ -929,4 +920,8 @@ export const enWebviewTranslations: WebviewTranslationKeys = {
   'description.panel.title': 'Description',
   'description.panel.show': 'Show description panel',
   'description.panel.hide': 'Hide description panel',
+
+  // Claude API Upload Dialog
+  'claudeApi.description':
+    'Upload workflows as Agent Skills to Claude API and run them via the Messages API.\nCombined with MCP servers, code execution, and other skills, you can publish specialized AI agents as APIs for document processing, data analysis, customer support, and more.',
 };

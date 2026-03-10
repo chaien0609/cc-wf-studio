@@ -407,7 +407,7 @@ Confirm        10001     確認ダイアログ（最優先）
 | z-index | 用途 | 例 |
 |---------|------|-----|
 | **9999** | 単独ダイアログ、親ダイアログ | McpNodeDialog, SkillBrowserDialog, SlackShareDialog |
-| **10000** | ネストされた子ダイアログ | SkillCreationDialog（SkillBrowserDialog内）, TermsOfUseDialog |
+| **10000** | ネストされた子ダイアログ | SkillCreationDialog（SkillBrowserDialog内）, SlackManualTokenDialog |
 | **10001** | 確認・警告ダイアログ | ConfirmDialog（削除確認など） |
 
 ### 実装パターン
@@ -481,12 +481,49 @@ export function MyDialog({ isOpen, onClose }: Props) {
 | ConfirmDialog | 10001 | 確認ダイアログ | ✅ |
 | SkillCreationDialog | 10000 | 子ダイアログ | ✅ |
 | SlackManualTokenDialog | 10000 | 子ダイアログ | ✅ |
-| TermsOfUseDialog | 10000 | 単独（優先表示） | ✅ |
 | SkillBrowserDialog | 9999 | 親ダイアログ | ✅ |
 | McpNodeDialog | 9999 | 単独 | ✅ |
 | SubAgentFlowDialog | 9999 | 親ダイアログ | ✅ |
 | SlackShareDialog | 9999 | 親ダイアログ | ✅ |
 | SlackConnectionRequiredDialog | 9999 | 単独 | ✅ |
 | McpNodeEditDialog | 9999 | 単独 | ✅ |
+
+## External Link Implementation Pattern
+
+Webview から外部URLを開く場合、VSCode の制約上 `<a href>` は使えないため、`openExternalUrl` ユーティリティと `lucide-react` の `ExternalLink` アイコンを使用する。
+
+### 実装方法
+
+```tsx
+import { ExternalLink } from 'lucide-react';
+import { openExternalUrl } from '../../services/vscode-bridge';
+
+// アイコンリンク（テキストなし）
+<span
+  role="button"
+  tabIndex={0}
+  onClick={() => openExternalUrl('https://example.com')}
+  onKeyDown={(e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      openExternalUrl('https://example.com');
+    }
+  }}
+  style={{
+    display: 'inline-flex',
+    cursor: 'pointer',
+    color: 'var(--vscode-textLink-foreground)',
+  }}
+  title="Open documentation"
+>
+  <ExternalLink size={11} />
+</span>
+```
+
+### 要点
+- `openExternalUrl()` は Extension Host 経由で `vscode.env.openExternal` を呼ぶ
+- `role="button"` + `tabIndex={0}` + `onKeyDown` でアクセシビリティ対応
+- アイコンサイズは周囲のテキストサイズに合わせる（11〜14px）
+- `e.stopPropagation()` はアコーディオンヘッダー内など親要素のクリックイベントと競合する場合に追加する
+- 既存の使用例: `McpServerSection.tsx`, `CodexNodeDialog.tsx`, `ClaudeApiUploadDialog.tsx`
 
 <!-- MANUAL ADDITIONS END -->

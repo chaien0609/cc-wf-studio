@@ -88,6 +88,10 @@ export const zhTWWebviewTranslations: WebviewTranslationKeys = {
   // Toolbar more actions dropdown
   'toolbar.moreActions': '更多',
   'toolbar.help': '說明',
+  'toolbar.whatsNew': '更新內容',
+  'whatsNew.title': '更新內容',
+  'whatsNew.viewAllReleases': '查看所有更新內容',
+  'whatsNew.showBadge': '未讀徽章',
 
   // Copilot Execution Mode
   'copilot.mode.tooltip': '選擇 Copilot 執行模式',
@@ -355,7 +359,7 @@ export const zhTWWebviewTranslations: WebviewTranslationKeys = {
   'tour.refineWithAI':
     '使用「AI編輯」按鈕透過與AI對話建立或改善工作流程。\n\n可以從空白畫布開始或以對話方式編輯現有工作流程。',
   'tour.moreActions':
-    '「更多」選單提供以下功能：<br><br>• 分享到Slack - 與團隊分享工作流程<br>• 重置 - 清空畫布<br>• 說明 - 再次檢視此導覽<br><br>享受建立工作流程的樂趣！',
+    '「更多」選單提供以下功能：<br><br>• Claude API - 將工作流程上傳到Claude API<br>• 分享到Slack - 與團隊分享工作流程<br>• 重置 - 清空畫布<br>• 專注模式 - 切換無干擾編輯模式<br>• AI代理 - 在其他AI代理中開啟工作流程<br>• 最新消息 - 檢視最新更新<br>• 說明 - 再次檢視此導覽<br><br>享受建立工作流程的樂趣！',
 
   // Tour buttons
   'tour.button.back': '返回',
@@ -363,19 +367,6 @@ export const zhTWWebviewTranslations: WebviewTranslationKeys = {
   'tour.button.finish': '完成',
   'tour.button.next': '下一步',
   'tour.button.skip': '略過',
-
-  // Terms of Use
-  'terms.title': 'CC Workflow Studio - 使用條款',
-  'terms.introduction': '本工具支援合法目的的工作流創建。',
-  'terms.prohibitedUse': '禁止以下用途：',
-  'terms.cyberAttack': '網路攻擊（DDoS攻擊、未經授權的訪問等）',
-  'terms.malware': '惡意軟體和勒索軟體的創建',
-  'terms.personalDataTheft': '未經授權收集或濫用個人資訊',
-  'terms.otherIllegalActs': '其他非法活動或對他人造成傷害的行為',
-  'terms.liability': '違規時用戶將承擔全部責任。',
-  'terms.agree': '我同意以上內容',
-  'terms.agreeButton': '同意並開始',
-  'terms.cancelButton': '取消',
 
   // Delete Confirmation Dialog
   'dialog.deleteNode.title': '刪除節點',
@@ -887,4 +878,8 @@ export const zhTWWebviewTranslations: WebviewTranslationKeys = {
   'description.panel.title': '描述',
   'description.panel.show': '顯示描述面板',
   'description.panel.hide': '隱藏描述面板',
+
+  // Claude API Upload Dialog
+  'claudeApi.description':
+    '將工作流程作為 Agent Skills 上傳到 Claude API，並透過 Messages API 執行。\n結合 MCP 伺服器、程式碼執行和其他技能，您可以將專業 AI 代理作為 API 發佈，用於文件處理、資料分析、客戶支援等場景。',
 };

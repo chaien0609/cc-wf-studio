@@ -91,6 +91,10 @@ export const jaWebviewTranslations: WebviewTranslationKeys = {
   // Toolbar more actions dropdown
   'toolbar.moreActions': 'その他',
   'toolbar.help': 'ヘルプ',
+  'toolbar.whatsNew': '更新情報',
+  'whatsNew.title': '更新情報',
+  'whatsNew.viewAllReleases': 'すべての更新情報を見る',
+  'whatsNew.showBadge': '未読バッジ',
 
   // Copilot Execution Mode
   'copilot.mode.tooltip': 'Copilot実行モードを選択',
@@ -369,7 +373,7 @@ export const jaWebviewTranslations: WebviewTranslationKeys = {
   'tour.refineWithAI':
     '「AI編集」ボタンで、AIとチャットしながらワークフローを生成・改善できます。\n\n空のキャンバスから新規作成も、既存のワークフローの修正も対話的に行えます。',
   'tour.moreActions':
-    '「その他」メニューから追加の操作が利用できます：<br><br>• Slackに共有 - チームとワークフローを共有<br>• リセット - キャンバスをクリア<br>• ヘルプ - このツアーを再表示<br><br>それでは、ワークフロー作成を楽しんでください！',
+    '「その他」メニューから追加の操作が利用できます：<br><br>• Claude API - ワークフローをClaude APIにアップロード<br>• Slackに共有 - チームとワークフローを共有<br>• リセット - キャンバスをクリア<br>• 集中モード - 集中編集モードの切り替え<br>• AIエージェント - 他のAIエージェントでワークフローを開く<br>• 最新情報 - 最新のアップデートを確認<br>• ヘルプ - このツアーを再表示<br><br>それでは、ワークフロー作成を楽しんでください！',
 
   // Tour buttons
   'tour.button.back': '戻る',
@@ -377,19 +381,6 @@ export const jaWebviewTranslations: WebviewTranslationKeys = {
   'tour.button.finish': '完了',
   'tour.button.next': '次へ',
   'tour.button.skip': 'スキップ',
-
-  // Terms of Use
-  'terms.title': 'CC Workflow Studio - 利用規約',
-  'terms.introduction': '本ツールは正当な目的でのワークフロー作成を支援します。',
-  'terms.prohibitedUse': '以下の用途での使用を禁止します：',
-  'terms.cyberAttack': 'サイバー攻撃（DDoS攻撃、不正アクセス等）',
-  'terms.malware': 'マルウェア・ランサムウェアの作成',
-  'terms.personalDataTheft': '個人情報の不正取得・悪用',
-  'terms.otherIllegalActs': 'その他の違法行為や他者への損害行為',
-  'terms.liability': '違反した場合、利用者が全責任を負います。',
-  'terms.agree': '上記に同意します',
-  'terms.agreeButton': '同意して開始',
-  'terms.cancelButton': 'キャンセル',
 
   // Delete Confirmation Dialog
   'dialog.deleteNode.title': 'ノードを削除',
@@ -922,4 +913,8 @@ export const jaWebviewTranslations: WebviewTranslationKeys = {
   'description.panel.title': '説明',
   'description.panel.show': '説明パネルを表示',
   'description.panel.hide': '説明パネルを非表示',
+
+  // Claude API Upload Dialog
+  'claudeApi.description':
+    'ワークフローを Agent Skills として Claude API にアップロードし、Messages API 経由で実行できます。\nMCP サーバー、コード実行、他のスキルと組み合わせることで、ドキュメント処理・データ分析・カスタマーサポートなど、専門的な AI エージェントを API として公開できます。',
 };

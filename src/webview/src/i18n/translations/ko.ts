@@ -90,6 +90,10 @@ export const koWebviewTranslations: WebviewTranslationKeys = {
   // Toolbar more actions dropdown
   'toolbar.moreActions': '더보기',
   'toolbar.help': '도움말',
+  'toolbar.whatsNew': '새 소식',
+  'whatsNew.title': '새 소식',
+  'whatsNew.viewAllReleases': '모든 업데이트 보기',
+  'whatsNew.showBadge': '읽지 않은 배지',
 
   // Copilot Execution Mode
   'copilot.mode.tooltip': 'Copilot 실행 모드 선택',
@@ -369,7 +373,7 @@ export const koWebviewTranslations: WebviewTranslationKeys = {
   'tour.refineWithAI':
     '"AI로 편집" 버튼을 사용하여 AI와 대화하며 워크플로우를 생성하거나 개선할 수 있습니다.\n\n빈 캔버스에서 시작하거나 기존 워크플로우를 대화형으로 수정할 수 있습니다.',
   'tour.moreActions':
-    '"더보기" 메뉴에서 추가 작업을 사용할 수 있습니다:<br><br>• Slack에 공유 - 팀과 워크플로우 공유<br>• 초기화 - 캔버스 지우기<br>• 도움말 - 이 투어 다시 보기<br><br>워크플로우 생성을 즐기세요!',
+    '"더보기" 메뉴에서 추가 작업을 사용할 수 있습니다:<br><br>• Claude API - 워크플로우를 Claude API에 업로드<br>• Slack에 공유 - 팀과 워크플로우 공유<br>• 초기화 - 캔버스 지우기<br>• 집중 모드 - 집중 편집 모드 전환<br>• AI 에이전트 - 다른 AI 에이전트에서 워크플로우 열기<br>• 새소식 - 최신 업데이트 확인<br>• 도움말 - 이 투어 다시 보기<br><br>워크플로우 생성을 즐기세요!',
 
   // Tour buttons
   'tour.button.back': '뒤로',
@@ -377,19 +381,6 @@ export const koWebviewTranslations: WebviewTranslationKeys = {
   'tour.button.finish': '완료',
   'tour.button.next': '다음',
   'tour.button.skip': '건너뛰기',
-
-  // Terms of Use
-  'terms.title': 'CC Workflow Studio - 이용 약관',
-  'terms.introduction': '이 도구는 정당한 목적의 워크플로우 생성을 지원합니다.',
-  'terms.prohibitedUse': '다음 용도로 사용을 금지합니다:',
-  'terms.cyberAttack': '사이버 공격 (DDoS 공격, 무단 접근 등)',
-  'terms.malware': '악성 코드 및 랜섬웨어 제작',
-  'terms.personalDataTheft': '개인 정보의 무단 수집 또는 오용',
-  'terms.otherIllegalActs': '기타 불법 행위 또는 타인에게 해를 끼치는 행위',
-  'terms.liability': '위반 시 사용자가 전적으로 책임을 집니다.',
-  'terms.agree': '위 내용에 동의합니다',
-  'terms.agreeButton': '동의하고 시작',
-  'terms.cancelButton': '취소',
 
   // Delete Confirmation Dialog
   'dialog.deleteNode.title': '노드 삭제',
@@ -918,4 +909,8 @@ export const koWebviewTranslations: WebviewTranslationKeys = {
   'description.panel.title': '설명',
   'description.panel.show': '설명 패널 표시',
   'description.panel.hide': '설명 패널 숨기기',
+
+  // Claude API Upload Dialog
+  'claudeApi.description':
+    '워크플로우를 Agent Skills로 Claude API에 업로드하고 Messages API를 통해 실행할 수 있습니다.\nMCP 서버, 코드 실행, 기타 스킬과 결합하여 문서 처리, 데이터 분석, 고객 지원 등 전문 AI 에이전트를 API로 공개할 수 있습니다.',
 };

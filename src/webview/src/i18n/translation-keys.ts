@@ -85,6 +85,12 @@ export interface WebviewTranslationKeys {
   // Toolbar more actions dropdown
   'toolbar.moreActions': string;
   'toolbar.help': string;
+  'toolbar.whatsNew': string;
+
+  // What's New dialog
+  'whatsNew.title': string;
+  'whatsNew.viewAllReleases': string;
+  'whatsNew.showBadge': string;
 
   // Copilot Execution Mode
   'copilot.mode.tooltip': string;
@@ -342,19 +348,6 @@ export interface WebviewTranslationKeys {
   'tour.button.finish': string;
   'tour.button.next': string;
   'tour.button.skip': string;
-
-  // Terms of Use
-  'terms.title': string;
-  'terms.introduction': string;
-  'terms.prohibitedUse': string;
-  'terms.cyberAttack': string;
-  'terms.malware': string;
-  'terms.personalDataTheft': string;
-  'terms.otherIllegalActs': string;
-  'terms.liability': string;
-  'terms.agree': string;
-  'terms.agreeButton': string;
-  'terms.cancelButton': string;
 
   // Delete Confirmation Dialog
   'dialog.deleteNode.title': string;
@@ -842,4 +835,7 @@ export interface WebviewTranslationKeys {
   'description.panel.title': string;
   'description.panel.show': string;
   'description.panel.hide': string;
+
+  // Claude API Upload Dialog
+  'claudeApi.description': string;
 }
