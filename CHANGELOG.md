@@ -1,3 +1,9 @@
+## [3.27.1](https://github.com/breaking-brake/cc-wf-studio/compare/v3.27.0...v3.27.1) (2026-03-10)
+
+### Bug Fixes
+
+* replace regex changelog parser with marked lexer ([#642](https://github.com/breaking-brake/cc-wf-studio/issues/642)) ([3d322e8](https://github.com/breaking-brake/cc-wf-studio/commit/3d322e84b42d9e5468ce96c08df1dbaf36e503ac))
+
 ## [3.27.0](https://github.com/breaking-brake/cc-wf-studio/compare/v3.26.3...v3.27.0) (2026-03-10)
 
 ### Features
